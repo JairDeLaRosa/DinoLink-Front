@@ -44,66 +44,79 @@ watch(messages, scrollToBottom, { deep: true })
 onMounted(scrollToBottom)
 </script>
 <template>
-    <VideoLLamada/>
+
     <div class="background">
-        <div class="col-md-8 col-xl-6 chat game">
-            <div class="card">
+        <div class="chatAndVideoChat">
+            
+            <div class="col-md-8 col-xl-6 chat game">
+                <div class="card">
 
-                <div class="card-body msg_card_body" ref="chatContainer">
-                    <div v-for="message in messages">
-                        <div v-if="message.rol === 'contact'" class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                    class="rounded-circle user_img_msg">
+                    <div class="card-body msg_card_body" ref="chatContainer">
+                        <div v-for="message in messages">
+                            <div v-if="message.rol === 'contact'" class="d-flex justify-content-start mb-4">
+                                <div class="img_cont_msg">
+                                    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                        class="rounded-circle user_img_msg">
+                                </div>
+                                <div class="msg_cotainer">
+                                    {{ message.message }}
+                                </div>
                             </div>
-                            <div class="msg_cotainer">
-                                {{ message.message }}
+                            <div v-else class="d-flex justify-content-end mb-4">
+                                <div class="msg_cotainer_send">
+                                    {{ message.message }}
+
+                                </div>
+                                <div class="img_cont_msg">
+                                    <img src="#" class="rounded-circle user_img_msg">
+                                </div>
                             </div>
                         </div>
-                        <div v-else class="d-flex justify-content-end mb-4">
-                            <div class="msg_cotainer_send">
-                                {{ message.message }}
+
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="input-group">
+                            <div class="input-group-append">
 
                             </div>
-                            <div class="img_cont_msg">
-                                <img src="#" class="rounded-circle user_img_msg">
+                            <textarea name="" class="form-control type_msg" placeholder="Type your message..."
+                                v-model="message" @keydown.enter.prevent="sendMessage"></textarea>
+                            <div class="input-group-append">
+                                <form @submit="sendMessage"><button type="submit" class="input-group-text send_btn"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                            fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                            <path
+                                                d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                                        </svg></button></form>
+
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-                <div class="card-footer">
-                    <div class="input-group">
-                        <div class="input-group-append">
-
-                        </div>
-                        <textarea name="" class="form-control type_msg" placeholder="Type your message..."
-                            v-model="message" @keydown.enter.prevent="sendMessage"></textarea>
-                        <div class="input-group-append">
-                            <form @submit="sendMessage"><button type="submit" class="input-group-text send_btn"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                        class="bi bi-send" viewBox="0 0 16 16">
-                                        <path
-                                            d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                                    </svg></button></form>
-
-                        </div>
-                    </div>
-                </div>
+                
             </div>
+            <VideoLLamada />
         </div>
+
     </div>
 
 </template>
 
 <style scoped>
-.background{
-    position: fixed;
-  height: 100%;
-  width: 100%;
-  background-color: #7F7FD5;
+.chatAndVideoChat{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+.background {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: #7F7FD5;
+}
+
 .game {
     width: 50vw;
 
@@ -116,7 +129,8 @@ onMounted(scrollToBottom)
 }
 
 .card {
-    height: 500px;
+    height: 40vh;
+    width: 50vw;
     border-radius: 0 0 15px 15px !important;
     background: linear-gradient(to bottom, #4b4b7e, #222238);
 }
